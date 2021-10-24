@@ -1,1 +1,3 @@
-# ui-tests-course-sample
+# ui-tests-part-two
+
+Проект с примерами кода для курса по автоматизации тестирования UI
