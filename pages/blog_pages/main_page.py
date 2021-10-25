@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 
 
+# класс для работы с главной страницей блога (/blog)
 class MainPage(BasePage):
     def click_on_post_title(self, title):
         post_title = MainPageLocators.POST_TITLE.replace("title", title)

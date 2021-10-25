@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
 
+# класс с общими хэлперами и методами для работы с элементами, которые расположены на каждой странице
 class BasePage:
     def __init__(self, browser: Chrome, url):
         self.browser = browser
