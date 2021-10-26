@@ -16,4 +16,3 @@ class Links:
     login = "login"
     profile = "profile"
     blog = "blog"
-    post = "blog/page/"

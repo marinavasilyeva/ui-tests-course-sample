@@ -28,7 +28,7 @@ class TestsBlogOpen:
     @pytest.fixture(autouse=True)
     def setup(self, browser, url):
         self.blog_page = MainPage(browser, url + Links.blog)
-        self.post_page = PostPage(browser, url)
+        self.post_page = PostPage(browser, url + Links.blog)
 
     def test_open_post(self, create_post_for_test):
         title, text = create_post_for_test
@@ -43,7 +43,7 @@ class TestsBlogModify:
     @pytest.fixture(autouse=True)
     def setup(self, browser, url):
         self.blog_page = MainPage(browser, url + Links.blog)
-        self.post_modify_page = PostModifyPage(browser, url)
+        self.post_modify_page = PostModifyPage(browser, url + Links.blog)
 
     def test_create_post(self, browser, url, faker):
         title = faker.text(10)
