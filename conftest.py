@@ -1,15 +1,14 @@
 import random
 
 import pytest
-from selenium.webdriver import Chrome
 
-from constants import Links
+from constants import Links, VALID_BROWSERS
 
 
 @pytest.fixture()
-def browser():
-    """Фикстура для открытия браузера перед тестом и закрытия после теста"""
-    browser = Chrome()
+def browser(request):
+    launch = request.config.getoption("--launch")
+    browser = VALID_BROWSERS[launch]()
     browser.maximize_window()
     yield browser
     browser.quit()
@@ -17,7 +16,7 @@ def browser():
 
 @pytest.fixture(scope="session")
 def url(request):
-    """Фикстура для получения заданного из командной строки окружения. Возвращает URL окружения"""
+    """Фикстура для получения заданного из командной строки окружения"""
     env = request.config.getoption("--env")
     url = Links.base_url.get(env)
     if not url:
@@ -26,7 +25,6 @@ def url(request):
 
 
 def pytest_configure(config):
-    """Хук для регистрации кастомных маркеров"""
     config.addinivalue_line(
         "markers", "auth: tests for auth testing"
     )
@@ -36,11 +34,14 @@ def pytest_configure(config):
 
 
 def pytest_addoption(parser):
-    """Хук для регистрации кастомных опций для запуска pytest"""
-    parser.addoption("--env", default="prod")
+    parser.addoption(
+        "--env", default="prod"
+    )
+    parser.addoption(
+        "--launch", default="chrome", choices=["chrome", "opera"]
+    )
 
 
 @pytest.fixture(scope='session', autouse=True)
 def faker_seed():
-    """Фикстура для генерации более уникальных значений для faker"""
     return random.randint(0, 9999)

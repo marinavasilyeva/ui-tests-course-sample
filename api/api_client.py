@@ -27,7 +27,6 @@ class Client:
 
     def __init__(self, url):
         self._session = None
-        self._cookies = None
         self._base_url = url
         self._login = self._base_url + "api/login"
         self.auth()
@@ -35,12 +34,10 @@ class Client:
     def auth(self) -> Dict:
         """Метод для авторизации пользователя, создает сессию, в которой авторизуется,
         возвращает авторизационные куки"""
-        if not self._cookies:
+        if not self._session:
             self._session = requests.session()
             self._session.post(self._login, data=POSITIVE_LOGIN_CREDENTIALS)
-            self._cookies = self._session.cookies
-
-        return self._cookies.get_dict()
+        return self._session.cookies.get_dict()
 
     @check_response
     def post(self, url: str, body: Dict = None) -> Union[Dict, None]:

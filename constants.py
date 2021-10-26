@@ -1,3 +1,5 @@
+from selenium.webdriver import Opera, Chrome
+
 NEGATIVE_LOGIN_CREDENTIALS = [
     ("", "!QAZ2wsx"),
     ("qa_test@test.ru", ""),
@@ -16,3 +18,9 @@ class Links:
     login = "login"
     profile = "profile"
     blog = "blog"
+
+
+VALID_BROWSERS = {
+   "chrome": Chrome,
+   "opera": Opera
+}
